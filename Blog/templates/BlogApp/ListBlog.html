@@ -1,0 +1,47 @@
+{% extends '../index.html' %}
+
+{% block style %}
+<style>
+    div.card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+</style>
+{% endblock style %}
+
+{% block content %}
+
+
+<div class="row">
+    <h1 class="text-center">All Blog</h1>
+    <hr/>
+    <div class="col-3 text-center">
+        <a href="{% url 'BlogApp:Home' %}" class="btn btn-warning">Create Blogs</a>
+    </div>
+    <div class="col-9">
+        <div class="row">
+            {% for blog in Blogs %}
+            <div class="col-4 mb-3">
+                <div class="card" style="width: 18rem;">
+                    <a href="{% url 'BlogApp:Detail' blog.id %}">
+                        <img src="{{blog.image.url}}" class="card-img-top" alt="..." />
+                    </a>
+                    <div class="card-body">
+                        <a href="{% url 'BlogApp:Detail' blog.id %}" style="text-decoration: none;">
+                                <h5 class="card-title text-black">
+                                    {{blog.title}} <span class="h6 text-muted">{{blog.author}}</span> 
+                                
+                                </h5>
+                            </a>
+                      <p class="card-text">Published on : {{blog.publish_date}}</p>
+                      <p class="card-text">Updated on : {{blog.update_date}}</p>
+                      <a href="{% url 'BlogApp:Delete' blog.id %}" class="btn btn-danger">Delete Blog</a>
+                      <a href="{% url 'BlogApp:Edit' blog.id %}" class="btn btn-primary">Edit Blog</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+</div>
+
+{% endblock content %}
